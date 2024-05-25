@@ -115,7 +115,16 @@ PrivateData = @{
         IconUri = 'https://raw.githubusercontent.com/pl4nty/PSDODownloader/main/icon.png'
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = @'
+## 0.0.1 (2024-05-25)
+
+
+### Features
+
+* migrate to SDK-style project (41d40bc)
+* port CLI to PowerShell as Invoke-Request and Get-Requests (f0b055a)
+* publish as PowerShell module (1de83b2)
+'@
 
         # Prerelease string of this module
         Prerelease = ''
