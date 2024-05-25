@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Management.Automation;
 using System.Runtime.InteropServices;
+using System.Text;
 
 // Sample code to showcase usage of Delivery Optimization client's COM API via C# Interop.
 // COM API is documented here: https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/do-reference
@@ -10,32 +12,7 @@ namespace DODownloader
 {
     internal class Program
     {
-        static int Main(string[] args)
-        {
-            // Example invocations:
-            //  > $url = "http://dl.delivery.mp.microsoft.com/filestreamingservice/files/52fa8751-747d-479d-8f22-e32730cc0eb1"
-            // Full file streaming download: > .\DODownloader.exe --url $url
-            // Partial file streaming download: > .\DODownloader.exe --url $url --ranges 10,65536,131072,65536
-            // Full file download: > .\DODownloader.exe --url $url --output-file-path $env:TEMP\testfile.dat
-            // Enumerate existing downloads: .\DODownloader.exe --enumerate
-            if (!Options.TryParseArgs(args, out Options options))
-            {
-                Console.WriteLine("Usage: DODownloader.exe --enumerate [--url <url>] | --url <url> [--output-file-path <path>]"
-                    + " [--ranges <offset0,length0,offset1,length1,...>]");
-                return 1;
-            }
-
-            if (options.Action == Options.Actions.EnumerateDownloads)
-            {
-                return ExecEnumeration(options.Url);
-            }
-            else
-            {
-                return ExecDownload(options);
-            }
-        }
-
-        class Options
+        internal class Options
         {
             public enum Actions
             {
@@ -124,11 +101,75 @@ namespace DODownloader
             }
         }
 
-        private static int ExecDownload(Options options)
+        internal static object GetDownloadProperty(IDODownload download, DODownloadProperty downloadProperty)
         {
+            try
+            {
+                download.GetProperty(downloadProperty, out object value);
+                return value;
+            }
+            catch (COMException ce)
+            {
+                Console.WriteLine($"Get property {downloadProperty} failed with error {ce.HResult:x}");
+                return null;
+            }
+        }
+
+        internal static DODownloadFactory GetDODownloadFactory()
+        {
+            return new DODownloadFactory(callerName: "PSDODownloader");
+        }
+    }
+
+    internal class PSTextWriter : TextWriter
+    {
+        Cmdlet cmdlet;
+
+        internal PSTextWriter(Cmdlet cmdlet)
+        {
+            this.cmdlet = cmdlet;
+        }
+
+        public override Encoding Encoding => Encoding.UTF8;
+
+        public override void Write(string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                cmdlet.WriteVerbose(value);
+            }
+        }
+    }
+
+    [Cmdlet(VerbsLifecycle.Invoke, "Request")]
+    public class ExecDownload : PSCmdlet, IDisposable
+    {
+        [Parameter(Mandatory = true)]
+        public Uri Uri { get; set; }
+
+        [Parameter()]
+        public string OutFile { get; set; }
+
+        [Parameter()]
+        public int[] Ranges { get; set; }
+
+        TextWriter standardOut;
+
+        protected override void BeginProcessing()
+        {
+            standardOut = Console.Out;
+            Console.SetOut(new PSTextWriter(this));
+            Program.Options options = new Program.Options()
+            {
+                Action = Program.Options.Actions.None,
+                Url = Uri.ToString(),
+                OutputFilePath = string.IsNullOrEmpty(OutFile) ? Path.GetFullPath(OutFile) : null,
+                DownloadRanges = Ranges != null ? new DODownloadRanges(Array.ConvertAll(Ranges, x => (ulong)x)) : null
+            };
+
             options.SetRangesIfEmpty();
 
-            var factory = GetDODownloadFactory();
+            var factory = Program.GetDODownloadFactory();
             var file = new DOFile(options.Url);
 
             DODownload download = null;
@@ -168,61 +209,74 @@ namespace DODownloader
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Download failed. Exception: hr: {ex.HResult:X}, {ex.Message}\n{ex.StackTrace}");
+                WriteError(new ErrorRecord(ex, $"Download failed. Exception: hr: {ex.HResult:X}, {ex.Message}\n{ex.StackTrace}", ErrorCategory.NotSpecified, null));
                 download?.Abort();
-                return 2;
             }
-            
-            return 0;
         }
 
-        // Enumerate existing downloads with an optionally filtering by URL.
-        // Future: Could support other filtering on other properties.
-        private static int ExecEnumeration(string filterUrl)
+        public void Dispose()
         {
-            var factory = GetDODownloadFactory();
-            List<IDODownload> downloads = (string.IsNullOrEmpty(filterUrl)) ?
+            Console.SetOut(standardOut);
+        }
+    }
+
+    // Enumerate existing downloads with an optionally filtering by URL.
+    // Future: Could support other filtering on other properties.
+    [Cmdlet(VerbsCommon.Get, "Requests")]
+    public class ExecEnumeration : PSCmdlet, IDisposable
+    {
+        [Parameter()]
+        public Uri Uri { get; set; }
+
+        TextWriter standardOut;
+
+        protected override void BeginProcessing()
+        {
+            standardOut = Console.Out;
+            Console.SetOut(new PSTextWriter(this));
+            var factory = Program.GetDODownloadFactory();
+            List<IDODownload> downloads = Uri == null ?
                 factory.EnumerateDownloads() :
-                factory.EnumerateDownloads(DODownloadProperty.Uri, filterUrl);
+                factory.EnumerateDownloads(DODownloadProperty.Uri, Uri.ToString());
             Console.WriteLine($"Enumeration found {downloads.Count} download(s).");
 
-            uint i = 1;
             foreach (var download in downloads)
             {
-                download.GetProperty(DODownloadProperty.Id, out object id);
-                var url = (string)GetDownloadProperty(download, DODownloadProperty.Uri);
-                var outputFilePath = (string)GetDownloadProperty(download, DODownloadProperty.LocalPath);
-                Console.WriteLine($"{i++}: Download {id}");
-                if (url != null)
+                WriteObject(new
                 {
-                    Console.WriteLine($"\turl: {url}");
-                }
-                if (outputFilePath != null)
-                {
-                    Console.WriteLine($"\toutputFilePath: {outputFilePath}");
-                }
-                Console.WriteLine();
+                    Id = Program.GetDownloadProperty(download, DODownloadProperty.Id),
+                    Uri = Program.GetDownloadProperty(download, DODownloadProperty.Uri),
+                    ContentId = Program.GetDownloadProperty(download, DODownloadProperty.ContentId),
+                    DisplayName = Program.GetDownloadProperty(download, DODownloadProperty.DisplayName),
+                    LocalPath = Program.GetDownloadProperty(download, DODownloadProperty.LocalPath),
+                    HttpCustomHeaders = Program.GetDownloadProperty(download, DODownloadProperty.HttpCustomHeaders),
+                    CostPolicy = Program.GetDownloadProperty(download, DODownloadProperty.CostPolicy),
+                    SecurityFlags = Program.GetDownloadProperty(download, DODownloadProperty.SecurityFlags),
+                    CallbackFreqPercent = Program.GetDownloadProperty(download, DODownloadProperty.CallbackFreqPercent),
+                    CallbackFreqSeconds = Program.GetDownloadProperty(download, DODownloadProperty.CallbackFreqSeconds),
+                    NoProgressTimeoutSeconds = Program.GetDownloadProperty(download, DODownloadProperty.NoProgressTimeoutSeconds),
+                    ForegroundPriority = Program.GetDownloadProperty(download, DODownloadProperty.ForegroundPriority),
+                    BlockingMode = Program.GetDownloadProperty(download, DODownloadProperty.BlockingMode),
+                    // CallbackInterface = Program.GetDownloadProperty(download, DODownloadProperty.CallbackInterface),
+                    // StreamInterface = Program.GetDownloadProperty(download, DODownloadProperty.StreamInterface),
+                    SecurityContext = Program.GetDownloadProperty(download, DODownloadProperty.SecurityContext),
+                    NetworkToken = Program.GetDownloadProperty(download, DODownloadProperty.NetworkToken),
+                    CorrelationVector = Program.GetDownloadProperty(download, DODownloadProperty.CorrelationVector),
+                    DecryptionInfo = Program.GetDownloadProperty(download, DODownloadProperty.DecryptionInfo),
+                    IntegrityCheckInfo = Program.GetDownloadProperty(download, DODownloadProperty.IntegrityCheckInfo),
+                    IntegrityCheckMandatory = Program.GetDownloadProperty(download, DODownloadProperty.IntegrityCheckMandatory),
+                    TotalSizeBytes = Program.GetDownloadProperty(download, DODownloadProperty.TotalSizeBytes),
+                    DisallowOnCellular = Program.GetDownloadProperty(download, DODownloadProperty.DisallowOnCellular),
+                    HttpCustomAuthHeaders = Program.GetDownloadProperty(download, DODownloadProperty.HttpCustomAuthHeaders),
+                    HttpAllowSecureToNonSecureRedirect = Program.GetDownloadProperty(download, DODownloadProperty.HttpAllowSecureToNonSecureRedirect),
+                    NonVolatile = Program.GetDownloadProperty(download, DODownloadProperty.NonVolatile),
+                });
             }
-            return 0;
         }
 
-        private static object GetDownloadProperty(IDODownload download, DODownloadProperty downloadProperty)
+        public void Dispose()
         {
-            try
-            {
-                download.GetProperty(downloadProperty, out object value);
-                return value;
-            }
-            catch (COMException ce)
-            {
-                Console.WriteLine($"Get property failed with {ce.HResult:x}");
-                return null;
-            }
-        }
-
-        private static DODownloadFactory GetDODownloadFactory()
-        {
-            return new DODownloadFactory(callerName: "DODownloader App");
+            Console.SetOut(standardOut);
         }
     }
 }
