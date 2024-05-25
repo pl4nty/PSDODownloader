@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>DODownloader</AssemblyName>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,5 +11,14 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+      <SourceFiles Include="$(OutDir)$(AssemblyName)*"/>
+    </ItemGroup>
+    
+    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="dist" />
+    <Copy SourceFiles="DODownloader.dll-Help.xml;PSDODownloader.psd1;LICENSE.txt" DestinationFolder="dist" />
+  </Target>
 
 </Project>

@@ -141,16 +141,45 @@ namespace DODownloader
         }
     }
 
+    public class DODownloadProperties {
+        public string Id { get; set; }
+        public string Uri { get; set; }
+        public string ContentId { get; set; }
+        public string DisplayName { get; set; }
+        public string LocalPath { get; set; }
+        public string HttpCustomHeaders { get; set; }
+        public string CostPolicy { get; set; }
+        public string SecurityFlags { get; set; }
+        public string CallbackFreqPercent { get; set; }
+        public string CallbackFreqSeconds { get; set; }
+        public string NoProgressTimeoutSeconds { get; set; }
+        public string ForegroundPriority { get; set; }
+        public string BlockingMode { get; set; }
+        public string CallbackInterface { get; set; }
+        public string StreamInterface { get; set; }
+        public string SecurityContext { get; set; }
+        public string NetworkToken { get; set; }
+        public string CorrelationVector { get; set; }
+        public string DecryptionInfo { get; set; }
+        public string IntegrityCheckInfo { get; set; }
+        public string IntegrityCheckMandatory { get; set; }
+        public string TotalSizeBytes { get; set; }
+        public string DisallowOnCellular { get; set; }
+        public string HttpCustomAuthHeaders { get; set; }
+        public string HttpAllowSecureToNonSecureRedirect { get; set; }
+        public string NonVolatile { get; set; }
+    }
+
     [Cmdlet(VerbsLifecycle.Invoke, "Request")]
     public class ExecDownload : PSCmdlet, IDisposable
     {
         [Parameter(Mandatory = true)]
         public Uri Uri { get; set; }
 
-        [Parameter()]
+        [Parameter]
         public string OutFile { get; set; }
 
-        [Parameter()]
+        [Parameter]
         public int[] Ranges { get; set; }
 
         TextWriter standardOut;
@@ -223,9 +252,10 @@ namespace DODownloader
     // Enumerate existing downloads with an optionally filtering by URL.
     // Future: Could support other filtering on other properties.
     [Cmdlet(VerbsCommon.Get, "Requests")]
+    [OutputType(typeof(DODownloadProperties))]
     public class ExecEnumeration : PSCmdlet, IDisposable
     {
-        [Parameter()]
+        [Parameter]
         public Uri Uri { get; set; }
 
         TextWriter standardOut;

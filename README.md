@@ -1,10 +1,12 @@
-﻿- Sample code to showcase usage of Delivery Optimization client's COM API via C# Interop.
-- COM API is documented here: https://learn.microsoft.com/en-us/windows/win32/delivery_optimization/do-reference
-- The project currently shows the following use cases:
-    - File output and streaming output.
-    - Full-file downloads and partial-file downloads (byte range requests).
-    - Download status callbacks.
-    - Enumerate existing downloads. Filtering (optional) implemented only for Uri property.
-- Tested on Visual Studio 2022
-- Minimum required Windows OS version: Windows 10, version 1809 (10.0.17763.1)
-- More on Delivery Optimization: https://learn.microsoft.com/en-us/windows/deployment/do/
+﻿# PSDODownloader
+
+PowerShell client for Delivery Optimization on Windows, based on [DODownloaderDotNet](https://github.com/shishirb-MSFT/DODownloaderDotNet).
+
+## Features
+
+- Download files using Delivery Optimization with familiar [Invoke-WebRequest](https://learn.microsoft.com/powershell/module/microsoft.powershell.utility/invoke-webrequest) syntax
+- List existing downloads, including properties that aren't available with `Get-DeliveryOptimizationStatus`
+
+## Usage
+
+See [Invoke-DORequest](./docs/Invoke-DORequest.md) and [Get-DORequests](./docs/Get-DORequests.md).

@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.x
+      - uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+      - run: dotnet build --configuration Release
+      - if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        uses: natescherer/publish-powershell-action@v1
+        with:
+          token: ${{ secrets.PS_GALLERY_KEY }}
+          target: gallery
+          path: dist
+      - name: Set prerelease version
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        shell: pwsh
+        run: (Get-Content dist/PSDODownloader.psd1) -replace "Prerelease =.+", "Prerelease = '$($env:GITHUB_SHA.Substring(0,7))'" | Set-Content dist/PSDODownloader.psd1
+      - uses: natescherer/publish-powershell-action@v1
+        with:
+          token: ${{ github.token }}
+          target: packages
+          path: dist
+
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ github.token }}
+          release-type: simple
