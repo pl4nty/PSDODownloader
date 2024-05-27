@@ -12,7 +12,7 @@
 RootModule = 'DODownloader.dll'
 
 # Version number of this module.
-ModuleVersion = '0.0.2'
+ModuleVersion = '0.0.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @('Desktop')
@@ -72,7 +72,7 @@ Description = 'PowerShell client for Delivery Optimization on Windows'
 FunctionsToExport = @()
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = @('Invoke-DORequest', 'Get-DORequests')
+CmdletsToExport = @('Invoke-Request', 'Get-Requests')
 
 # Variables to export from this module
 VariablesToExport = '*'
@@ -116,7 +116,7 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
-## 0.0.2 (2024-05-25)
+## 0.0.3 (2024-05-27)
 
 ### Features
 * migrate to SDK-style project (41d40bc)

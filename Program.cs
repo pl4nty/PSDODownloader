@@ -173,7 +173,7 @@ namespace DODownloader
     [Cmdlet(VerbsLifecycle.Invoke, "Request")]
     public class ExecDownload : PSCmdlet, IDisposable
     {
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, Position = 0)]
         public Uri Uri { get; set; }
 
         [Parameter]
@@ -192,7 +192,7 @@ namespace DODownloader
             {
                 Action = Program.Options.Actions.None,
                 Url = Uri.ToString(),
-                OutputFilePath = string.IsNullOrEmpty(OutFile) ? Path.GetFullPath(OutFile) : null,
+                OutputFilePath = string.IsNullOrEmpty(OutFile) ? null : Path.GetFullPath(OutFile),
                 DownloadRanges = Ranges != null ? new DODownloadRanges(Array.ConvertAll(Ranges, x => (ulong)x)) : null
             };
 
