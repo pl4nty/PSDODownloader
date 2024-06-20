@@ -14,7 +14,8 @@ Download a file using the Delivery Optimization service.
 ## SYNTAX
 
 ```powershell
-Invoke-DORequest -Uri <Uri> [-OutFile <String>] [-Ranges <Int32[]>] [<CommonParameters>]
+Invoke-DORequest -Uri <Uri> [-OutFile <String>] [-Ranges <Int32[]>] [-Caller <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -99,6 +100,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Caller
+
+The caller display name, also known as `PredefinedCallerApplication`.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -110,8 +127,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### None <!-- markdownlint-disable MD024 -->
-
-## NOTES
 
 ## RELATED LINKS
 

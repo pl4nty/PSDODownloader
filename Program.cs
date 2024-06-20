@@ -114,11 +114,6 @@ namespace DODownloader
                 return null;
             }
         }
-
-        internal static DODownloadFactory GetDODownloadFactory()
-        {
-            return new DODownloadFactory(callerName: "PSDODownloader");
-        }
     }
 
     internal class PSTextWriter : TextWriter
@@ -182,6 +177,9 @@ namespace DODownloader
         [Parameter]
         public int[] Ranges { get; set; }
 
+        [Parameter]
+        public string Caller { get; set; }
+
         TextWriter standardOut;
 
         protected override void BeginProcessing()
@@ -192,13 +190,13 @@ namespace DODownloader
             {
                 Action = Program.Options.Actions.None,
                 Url = Uri.ToString(),
-                OutputFilePath = string.IsNullOrEmpty(OutFile) ? null : Path.GetFullPath(OutFile),
+                OutputFilePath = OutFile ?? ? null : Path.GetFullPath(OutFile),
                 DownloadRanges = Ranges != null ? new DODownloadRanges(Array.ConvertAll(Ranges, x => (ulong)x)) : null
             };
 
             options.SetRangesIfEmpty();
 
-            var factory = Program.GetDODownloadFactory();
+            var factory = new DODownloadFactory(Caller ?? "PSDODownloader");
             var file = new DOFile(options.Url);
 
             DODownload download = null;
@@ -264,7 +262,7 @@ namespace DODownloader
         {
             standardOut = Console.Out;
             Console.SetOut(new PSTextWriter(this));
-            var factory = Program.GetDODownloadFactory();
+            var factory = new DODownloadFactory("PSDODownloader");
             List<IDODownload> downloads = Uri == null ?
                 factory.EnumerateDownloads() :
                 factory.EnumerateDownloads(DODownloadProperty.Uri, Uri.ToString());
