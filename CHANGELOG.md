@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.0](https://github.com/pl4nty/PSDODownloader/compare/v0.0.3...v0.1.0) (2024-06-25)
+
+
+### Features
+
+* add `Caller` param to `Invoke-DORequest` ([00abeb7](https://github.com/pl4nty/PSDODownloader/commit/00abeb7ea763b493088ca2c9485bbd8c0f343dfa))
+* add `ContentId` param to `Invoke-DORequest` ([2dfcb10](https://github.com/pl4nty/PSDODownloader/commit/2dfcb1026bd5fdb9b4af2ce7c83dd415df548e46))
+
+
+### Bug Fixes
+
+* `OutputFilePath` default value comparison ([7791ec0](https://github.com/pl4nty/PSDODownloader/commit/7791ec09135284ce8d62a3fd563bc1df202c4f16))
+
 ## 0.0.3 (2024-05-27)
 
 

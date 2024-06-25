@@ -12,7 +12,7 @@
 RootModule = 'DODownloader.dll'
 
 # Version number of this module.
-ModuleVersion = '0.0.3'
+ModuleVersion = '0.1.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @('Desktop')
@@ -116,6 +116,15 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.1.0 (2024-06-25)
+
+### Features
+* add `Caller` param to `Invoke-DORequest` (00abeb7)
+* add `ContentId` param to `Invoke-DORequest` (2dfcb10)
+
+### Bug Fixes
+* `OutputFilePath` default value comparison (7791ec0)
+
 ## 0.0.3 (2024-05-27)
 
 ### Features
