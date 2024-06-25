@@ -178,7 +178,7 @@ NonVolatile                        : False</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Uri</maml:name>
           <maml:description>
             <maml:para>The remote URI path of the resource to download.</maml:para>
@@ -194,6 +194,18 @@ NonVolatile                        : False</dev:code>
           <maml:name>Caller</maml:name>
           <maml:description>
             <maml:para>The caller display name, also known as `PredefinedCallerApplication`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ContentId</maml:name>
+          <maml:description>
+            <maml:para>The unique content ID of the resource to download.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -229,7 +241,7 @@ NonVolatile                        : False</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Uri</maml:name>
         <maml:description>
           <maml:para>The remote URI path of the resource to download.</maml:para>
@@ -245,6 +257,18 @@ NonVolatile                        : False</dev:code>
         <maml:name>Caller</maml:name>
         <maml:description>
           <maml:para>The caller display name, also known as `PredefinedCallerApplication`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ContentId</maml:name>
+        <maml:description>
+          <maml:para>The unique content ID of the resource to download.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>

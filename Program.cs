@@ -168,8 +168,11 @@ namespace DODownloader
     [Cmdlet(VerbsLifecycle.Invoke, "Request")]
     public class ExecDownload : PSCmdlet, IDisposable
     {
-        [Parameter(Mandatory = true, Position = 0)]
+        [Parameter(Position = 0)]
         public Uri Uri { get; set; }
+
+        [Parameter]
+        public string ContentId { get; set; }
 
         [Parameter]
         public string OutFile { get; set; }
@@ -184,12 +187,24 @@ namespace DODownloader
 
         protected override void BeginProcessing()
         {
+            if (string.IsNullOrEmpty(Uri?.AbsoluteUri) && string.IsNullOrEmpty(ContentId))
+            {
+                ThrowTerminatingError(
+                    new ErrorRecord(
+                        new ArgumentException("At least one of 'Uri' or 'ContentId' must be provided."),
+                        "MissingParameter",
+                        ErrorCategory.InvalidArgument,
+                        null
+                    )
+                );
+            }
+
             standardOut = Console.Out;
             Console.SetOut(new PSTextWriter(this));
             Program.Options options = new Program.Options()
             {
                 Action = Program.Options.Actions.None,
-                Url = Uri.ToString(),
+                Url = Uri?.ToString(),
                 OutputFilePath = string.IsNullOrEmpty(OutFile) ? null : Path.GetFullPath(OutFile),
                 DownloadRanges = Ranges != null ? new DODownloadRanges(Array.ConvertAll(Ranges, x => (ulong)x)) : null
             };
@@ -197,7 +212,7 @@ namespace DODownloader
             options.SetRangesIfEmpty();
 
             var factory = new DODownloadFactory(Caller ?? "PSDODownloader");
-            var file = new DOFile(options.Url);
+            var file = new DOFile(options.Url, ContentId);
 
             DODownload download = null;
             SequentialStreamReceiver downloadDataSink = null;

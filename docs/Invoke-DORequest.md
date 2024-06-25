@@ -14,7 +14,7 @@ Download a file using the Delivery Optimization service.
 ## SYNTAX
 
 ```powershell
-Invoke-DORequest -Uri <Uri> [-OutFile <String>] [-Ranges <Int32[]>] [-Caller <String>]
+Invoke-DORequest [-Uri <Uri>] [-ContentId <String>] [-OutFile <String>] [-Ranges <Int32[]>] [-Caller <String>]
  [<CommonParameters>]
 ```
 
@@ -93,7 +93,7 @@ Type: Uri
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -103,6 +103,22 @@ Accept wildcard characters: False
 ### -Caller
 
 The caller display name, also known as `PredefinedCallerApplication`.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ContentId
+
+The unique content ID of the resource to download.
 
 ```yaml
 Type: String
