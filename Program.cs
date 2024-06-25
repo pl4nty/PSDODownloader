@@ -190,7 +190,7 @@ namespace DODownloader
             {
                 Action = Program.Options.Actions.None,
                 Url = Uri.ToString(),
-                OutputFilePath = OutFile ?? ? null : Path.GetFullPath(OutFile),
+                OutputFilePath = string.IsNullOrEmpty(OutFile) ? null : Path.GetFullPath(OutFile),
                 DownloadRanges = Ranges != null ? new DODownloadRanges(Array.ConvertAll(Ranges, x => (ulong)x)) : null
             };
 
