@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/pl4nty/PSDODownloader/compare/v0.1.0...v0.2.0) (2025-05-13)
+
+
+### Features
+
+* change solution from x64 to AnyCPU ([#8](https://github.com/pl4nty/PSDODownloader/issues/8)) ([bea35c1](https://github.com/pl4nty/PSDODownloader/commit/bea35c1aacdba67777108679fd5bcfc185a82d80))
+
 ## [0.1.0](https://github.com/pl4nty/PSDODownloader/compare/v0.0.3...v0.1.0) (2024-06-25)
 
 

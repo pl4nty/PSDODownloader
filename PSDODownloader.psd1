@@ -12,7 +12,7 @@
 RootModule = 'DODownloader.dll'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '0.2.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @('Desktop')
@@ -116,6 +116,11 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.2.0 (2025-05-13)
+
+### Features
+* change solution from x64 to AnyCPU (bea35c1)
+
 ## 0.1.0 (2024-06-25)
 
 ### Features
