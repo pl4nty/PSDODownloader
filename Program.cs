@@ -125,14 +125,11 @@ namespace DODownloader
             this.cmdlet = cmdlet;
         }
 
-        public override Encoding Encoding => Encoding.UTF8;
+        public override Encoding Encoding => Encoding;
 
-        public override void Write(string value)
+        public override void WriteLine(string value)
         {
-            if (!string.IsNullOrWhiteSpace(value))
-            {
-                cmdlet.WriteVerbose(value);
-            }
+            cmdlet.WriteVerbose(value);
         }
     }
 
@@ -215,6 +212,12 @@ namespace DODownloader
             var file = new DOFile(options.Url, ContentId);
 
             DODownload download = null;
+            ConsoleCancelEventHandler cancelHandler = (sender, e) =>
+            {
+                e.Cancel = true;
+                download?.Abort();
+            };
+            Console.CancelKeyPress += cancelHandler;
             SequentialStreamReceiver downloadDataSink = null;
             try
             {

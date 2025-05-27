@@ -161,8 +161,12 @@ namespace DODownloader
 
         public void Abort()
         {
-            Console.WriteLine($"Download {Id}: aborting");
-            ClientDownload.Abort();
+            Console.Write($"Download {Id}: aborting");
+            // Avoid 0x80D02013 DO_E_INVALID_STATE
+            if (GetState() != DODownloadState.Aborted)
+            {
+                ClientDownload.Abort();
+            }
         }
 
         // 'Finalize' conflicts with destructor invocation, hence the '2' suffix
@@ -212,7 +216,7 @@ namespace DODownloader
         {
             Console.WriteLine($"Download {Id}: waiting until transferred state");
             Handler.WaitForState(DODownloadState.Transferred, waitTimeSecs, this,
-                new DODownloadState[] { DODownloadState.Paused });
+                new DODownloadState[] { DODownloadState.Paused, DODownloadState.Aborted });
         }
 
         /// <summary>
