@@ -12,7 +12,7 @@
 RootModule = 'DODownloader.dll'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '0.2.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @('Desktop')
@@ -116,6 +116,11 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.2.1 (2025-05-27)
+
+### Bug Fixes
+* aborting downloads and PowerShell 5 logging (769e0b1)
+
 ## 0.2.0 (2025-05-13)
 
 ### Features
