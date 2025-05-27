@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/pl4nty/PSDODownloader/compare/v0.2.0...v0.2.1) (2025-05-27)
+
+
+### Bug Fixes
+
+* aborting downloads and PowerShell 5 logging ([769e0b1](https://github.com/pl4nty/PSDODownloader/commit/769e0b11b3186c4da117915c70cff92bdda9202b))
+
 ## [0.2.0](https://github.com/pl4nty/PSDODownloader/compare/v0.1.0...v0.2.0) (2025-05-13)
 
 
