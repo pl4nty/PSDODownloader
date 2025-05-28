@@ -201,7 +201,7 @@ namespace DODownloader
             Program.Options options = new Program.Options()
             {
                 Action = Program.Options.Actions.None,
-                Url = Uri?.ToString(),
+                Url = Uri?.OriginalString,
                 OutputFilePath = string.IsNullOrEmpty(OutFile) ? null : Path.GetFullPath(OutFile),
                 DownloadRanges = Ranges != null ? new DODownloadRanges(Array.ConvertAll(Ranges, x => (ulong)x)) : null
             };
@@ -283,7 +283,7 @@ namespace DODownloader
             var factory = new DODownloadFactory("PSDODownloader");
             List<IDODownload> downloads = Uri == null ?
                 factory.EnumerateDownloads() :
-                factory.EnumerateDownloads(DODownloadProperty.Uri, Uri.ToString());
+                factory.EnumerateDownloads(DODownloadProperty.Uri, Uri.OriginalString);
             Console.WriteLine($"Enumeration found {downloads.Count} download(s).");
 
             foreach (var download in downloads)
