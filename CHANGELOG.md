@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/pl4nty/PSDODownloader/compare/v0.2.1...v0.2.2) (2025-05-28)
+
+
+### Bug Fixes
+
+* PowerShell 5 URL encoding ([5b0614f](https://github.com/pl4nty/PSDODownloader/commit/5b0614fc4c55caa8026913c0b907cdcef8e77d81))
+* regenerate docs with PlatyPS v1 ([5d70910](https://github.com/pl4nty/PSDODownloader/commit/5d709100297412ba3015fa8fc72b47accaa0fbec))
+
 ## [0.2.1](https://github.com/pl4nty/PSDODownloader/compare/v0.2.0...v0.2.1) (2025-05-27)
 
 

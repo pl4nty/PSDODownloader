@@ -12,7 +12,7 @@
 RootModule = 'DODownloader.dll'
 
 # Version number of this module.
-ModuleVersion = '0.2.1'
+ModuleVersion = '0.2.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @('Desktop')
@@ -116,6 +116,12 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.2.2 (2025-05-28)
+
+### Bug Fixes
+* PowerShell 5 URL encoding (5b0614f)
+* regenerate docs with PlatyPS v1 (5d70910)
+
 ## 0.2.1 (2025-05-27)
 
 ### Bug Fixes
