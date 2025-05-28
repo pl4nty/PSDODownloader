@@ -1,6 +1,7 @@
 ﻿# PSDODownloader
 
-PowerShell client for Delivery Optimization on Windows, based on [DODownloaderDotNet](https://github.com/shishirb-MSFT/DODownloaderDotNet).
+PowerShell client for Delivery Optimization (DO) on Windows, based on [DODownloaderDotNet](https://github.com/shishirb-MSFT/DODownloaderDotNet).
+Useful for testing DO configuration, cache servers, and performance. Also check out the [official DeliveryOptimization cmdlets](https://learn.microsoft.com/en-us/powershell/module/deliveryoptimization/) like `Delete-DeliveryOptimizationCache` and `Get-DeliveryOptimizationLog`.
 
 ## Features
 

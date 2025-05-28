@@ -1,8 +1,12 @@
----
-external help file: DODownloader.dll-Help.xml
+﻿---
+document type: cmdlet
+external help file: PSDODownloader-Help.xml
+HelpUri: ''
+Locale: en-AU
 Module Name: PSDODownloader
-online version:
-schema: 2.0.0
+ms.date: 05/28/2025
+PlatyPS schema version: 2024-05-01
+title: Invoke-DORequest
 ---
 
 # Invoke-DORequest
@@ -14,21 +18,22 @@ Download a file using the Delivery Optimization service.
 ## SYNTAX
 
 ```powershell
-Invoke-DORequest [-Uri <Uri>] [-ContentId <String>] [-OutFile <String>] [-Ranges <Int32[]>] [-Caller <String>]
- [<CommonParameters>]
+Invoke-DORequest [[-Uri] <uri>] [-ContentId <string>] [-OutFile <string>] [-Ranges <int[]>]
+ [-Caller <string>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 The `Invoke-DORequest` cmdlet requests a file download from the Delivery Optimization service.
-The download can be streamed and deleted after completion, or written to a provided path. Byte ranges can also be requested, instead of the whole file.
+The download can be streamed and deleted after completion, or written to a provided path.
+Byte ranges can also be requested, instead of the whole file.
 No results are returned.
 
 ## EXAMPLES
 
 ### Example 1
 
-Download a file using streaming and delete it.
+Download a file using streaming and delete it. This may fail with write errors (`0x80190193 CBufferedWriteData::Write`).
 
 ```powershell
 PS C:\> Invoke-DORequest -Uri http://dl.delivery.mp.microsoft.com/filestreamingservice/files/52fa8751-747d-479d-8f22-e32730cc0eb1
@@ -47,73 +52,30 @@ PS C:\> Invoke-DORequest -Uri http://dl.delivery.mp.microsoft.com/filestreamings
 Download parts of a file using [byte ranges](https://learn.microsoft.com/en-us/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_range).
 
 ```powershell
-PS C:\> Invoke-DORequest -Uri http://dl.delivery.mp.microsoft.com/filestreamingservice/files/52fa8751-747d-479d-8f22-e32730cc0eb1 -Ranges 10,65536,131072,65536
+PS C:\> Invoke-DORequest -Uri http://dl.delivery.mp.microsoft.com/filestreamingservice/files/52fa8751-747d-479d-8f22-e32730cc0eb1 -OutFile download.exe -Ranges 10,65536,131072,65536
 ```
 
 ## PARAMETERS
-
-### -OutFile
-
-The local path name to save the download file.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Ranges
-
-Pairs of [byte ranges](https://learn.microsoft.com/en-us/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_range) to download from a file. Formatted as a flat array.
-
-```yaml
-Type: Int32[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Uri
-
-The remote URI path of the resource to download.
-
-```yaml
-Type: Uri
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -Caller
 
 The caller display name, also known as `PredefinedCallerApplication`.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
+Type: System.String
+DefaultValue: None
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
 ### -ContentId
@@ -121,29 +83,99 @@ Accept wildcard characters: False
 The unique content ID of the resource to download.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
+Type: System.String
+DefaultValue: None
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
+### -OutFile
+
+The local path name to save the download file.
+
+```yaml
+Type: System.String
+DefaultValue: None
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Ranges
+
+Pairs of [byte ranges](https://learn.microsoft.com/en-us/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_range) to download from a file.
+Formatted as a flat array.
+
+```yaml
+Type: System.Int32[]
+DefaultValue: None
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Uri
+
+The remote URI path of the resource to download.
+
+```yaml
+Type: System.Uri
+DefaultValue: None
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
-
 ## OUTPUTS
 
-### None <!-- markdownlint-disable MD024 -->
+### None
 
 ## RELATED LINKS
 
-[Get-DORequests](Get-DORequests.md)
+- [Get-DORequests](Get-DORequests.md)
