@@ -180,6 +180,10 @@ namespace DODownloader
         [Parameter]
         public string Caller { get; set; }
 
+        [Parameter(Mandatory = false)]
+        [PSDefaultValue(Value = 60)]
+        public int TimeoutSec { get; set; }
+
         TextWriter standardOut;
 
         protected override void BeginProcessing()
@@ -236,7 +240,7 @@ namespace DODownloader
                 }
 
                 download.SetForeground();
-                download.StartAndWaitUntilTransferred(options.DownloadRanges, completionTimeSecs: 60);
+                download.StartAndWaitUntilTransferred(options.DownloadRanges, completionTimeSecs: TimeoutSec);
                 // Here, we can do something more, like query stats from download.
                 // Then let DO client know that we are done with this download object.
                 download.Finalize2();
