@@ -182,7 +182,7 @@ namespace DODownloader
 
         [Parameter(Mandatory = false)]
         [PSDefaultValue(Value = 60)]
-        public int TimeoutSec { get; set; }
+        public int TimeoutSec { get; set; } = 60;
 
         TextWriter standardOut;
 
