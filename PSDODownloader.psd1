@@ -12,7 +12,7 @@
 RootModule = 'DODownloader.dll'
 
 # Version number of this module.
-ModuleVersion = '0.2.2'
+ModuleVersion = '0.3.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @('Desktop')
@@ -116,6 +116,14 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## 0.3.0 (2025-08-19)
+
+### Features
+* timeout param for Invoke-Download (1e6afd0)
+
+### Bug Fixes
+* TimeoutSec default value (4fac4f6)
+
 ## 0.2.2 (2025-05-28)
 
 ### Bug Fixes
