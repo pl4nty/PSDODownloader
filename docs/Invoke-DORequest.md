@@ -4,7 +4,7 @@ external help file: PSDODownloader-Help.xml
 HelpUri: ''
 Locale: en-AU
 Module Name: PSDODownloader
-ms.date: 05/28/2025
+ms.date: 08/19/2025
 PlatyPS schema version: 2024-05-01
 title: Invoke-DORequest
 ---
@@ -19,7 +19,7 @@ Download a file using the Delivery Optimization service.
 
 ```powershell
 Invoke-DORequest [[-Uri] <uri>] [-ContentId <string>] [-OutFile <string>] [-Ranges <int[]>]
- [-Caller <string>] [<CommonParameters>]
+ [-Caller <string>] [-TimeoutSec <int>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -142,6 +142,27 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -TimeoutSec
+
+Specifies how long the request can be pending before it times out. Enter a value in seconds. The default value is 60.
+
+```yaml
+Type: System.Int32
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -Uri
 
 The remote URI path of the resource to download.
@@ -174,7 +195,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### None
+### None <!-- markdownlint-disable MD024 -->
 
 ## RELATED LINKS
 
