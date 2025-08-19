@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/pl4nty/PSDODownloader/compare/v0.2.2...v0.3.0) (2025-08-19)
+
+
+### Features
+
+* timeout param for Invoke-Download ([1e6afd0](https://github.com/pl4nty/PSDODownloader/commit/1e6afd0e6e425d0a742a8c94087f78af61c7c6ff))
+
+
+### Bug Fixes
+
+* TimeoutSec default value ([4fac4f6](https://github.com/pl4nty/PSDODownloader/commit/4fac4f6470466fa54d9b7d0a2f5021375121d9d3))
+
 ## [0.2.2](https://github.com/pl4nty/PSDODownloader/compare/v0.2.1...v0.2.2) (2025-05-28)
 
 
