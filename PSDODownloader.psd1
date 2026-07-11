@@ -12,7 +12,7 @@
 RootModule = 'DODownloader.dll'
 
 # Version number of this module.
-ModuleVersion = '0.3.0'
+ModuleVersion = '0.4.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @('Desktop')
@@ -116,42 +116,31 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
-## 0.3.0 (2025-08-19)
+0.4.0 (2026-07-11)
+* sign releases (334fa9f)
+* switch parameter to set download job as background (87dbaaf)
+* default to IME's caller ID so downloads are cached (ab4ed45)
 
-### Features
+0.3.0 (2025-08-19)
 * timeout param for Invoke-Download (1e6afd0)
-
-### Bug Fixes
 * TimeoutSec default value (4fac4f6)
 
-## 0.2.2 (2025-05-28)
-
-### Bug Fixes
+0.2.2 (2025-05-28)
 * PowerShell 5 URL encoding (5b0614f)
 * regenerate docs with PlatyPS v1 (5d70910)
 
-## 0.2.1 (2025-05-27)
-
-### Bug Fixes
+0.2.1 (2025-05-27)
 * aborting downloads and PowerShell 5 logging (769e0b1)
 
-## 0.2.0 (2025-05-13)
-
-### Features
+0.2.0 (2025-05-13)
 * change solution from x64 to AnyCPU (bea35c1)
 
-## 0.1.0 (2024-06-25)
-
-### Features
+0.1.0 (2024-06-25)
 * add `Caller` param to `Invoke-DORequest` (00abeb7)
 * add `ContentId` param to `Invoke-DORequest` (2dfcb10)
-
-### Bug Fixes
 * `OutputFilePath` default value comparison (7791ec0)
 
-## 0.0.3 (2024-05-27)
-
-### Features
+0.0.3 (2024-05-27)
 * migrate to SDK-style project (41d40bc)
 * port CLI to PowerShell as Invoke-Request and Get-Requests (f0b055a)
 * publish as PowerShell module (1de83b2)
