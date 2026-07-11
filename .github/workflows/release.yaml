@@ -28,31 +28,31 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget
       - run: dotnet build --configuration Release
-      - uses: azure/login@v2
+      - name: Set prerelease version
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        shell: pwsh
+        run: (Get-Content dist/PSDODownloader.psd1) -replace "Prerelease =.+", "Prerelease = '$($env:GITHUB_SHA.Substring(0,7))'" | Set-Content dist/PSDODownloader.psd1
+        
+      - uses: azure/login@v3.0.0
         if: ${{ github.event_name != 'pull_request' }}
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      - name: Install AzureSignTool
+      - run: dotnet tool install --global AzureSignTool
         if: ${{ github.event_name != 'pull_request' }}
-        run: dotnet tool install --global AzureSignTool
-      - name: Sign module
+      - run: AzureSignTool sign -kvu $KEY_VAULT_URL -kvc $KEY_VAULT_CERT -kvm -tr http://timestamp.acs.microsoft.com -td sha256 -fd sha256 dist
         if: ${{ github.event_name != 'pull_request' }}
-        run: AzureSignTool sign -kvu $KEY_VAULT_URL -kvc $KEY_VAULT_CERT -kvm -tr http://timestamp.acs.microsoft.com -td sha256 -fd sha256 dist/DODownloader.dll
         env:
           KEY_VAULT_URL: ${{ vars.KEY_VAULT_URL }}
           KEY_VAULT_CERT: ${{ vars.KEY_VAULT_CERT }}
+
       - if: ${{ startsWith(github.ref, 'refs/tags/') }}
         uses: natescherer/publish-powershell-action@v1.1.1
         with:
           token: ${{ secrets.PS_GALLERY_KEY }}
           target: gallery
           path: dist
-      - name: Set prerelease version
-        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
-        shell: pwsh
-        run: (Get-Content dist/PSDODownloader.psd1) -replace "Prerelease =.+", "Prerelease = '$($env:GITHUB_SHA.Substring(0,7))'" | Set-Content dist/PSDODownloader.psd1
       - uses: natescherer/publish-powershell-action@v1.1.1
         with:
           token: ${{ github.token }}
