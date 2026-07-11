@@ -184,6 +184,9 @@ namespace DODownloader
         [PSDefaultValue(Value = 60)]
         public int TimeoutSec { get; set; } = 60;
 
+        [Parameter]
+        public SwitchParameter Background { get; set; }
+
         TextWriter standardOut;
 
         protected override void BeginProcessing()
@@ -239,7 +242,15 @@ namespace DODownloader
                     download = factory.CreateDownloadWithFileOutput(file, options.OutputFilePath);
                 }
 
-                download.SetForeground();
+                if(Background.IsPresent)
+                {
+                    download.SetBackground();
+                }
+                else
+                {
+                    download.SetForeground();
+                }
+
                 download.StartAndWaitUntilTransferred(options.DownloadRanges, completionTimeSecs: TimeoutSec);
                 // Here, we can do something more, like query stats from download.
                 // Then let DO client know that we are done with this download object.
