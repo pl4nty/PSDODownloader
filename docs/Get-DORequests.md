@@ -1,10 +1,10 @@
-﻿---
+---
 document type: cmdlet
-external help file: PSDODownloader-Help.xml
+external help file: DODownloader.dll-Help.xml
 HelpUri: ''
 Locale: en-AU
 Module Name: PSDODownloader
-ms.date: 05/28/2025
+ms.date: 07/11/2026
 PlatyPS schema version: 2024-05-01
 title: Get-DORequests
 ---
@@ -18,7 +18,7 @@ Get Delivery Optimization downloads.
 ## SYNTAX
 
 ```powershell
-Get-DORequests [-Uri <Uri>] [<CommonParameters>]
+Get-DORequests [-Uri <uri>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

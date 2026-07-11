@@ -1,10 +1,10 @@
-﻿---
+---
 document type: cmdlet
-external help file: PSDODownloader-Help.xml
+external help file: DODownloader.dll-Help.xml
 HelpUri: ''
 Locale: en-AU
 Module Name: PSDODownloader
-ms.date: 08/19/2025
+ms.date: 07/11/2026
 PlatyPS schema version: 2024-05-01
 title: Invoke-DORequest
 ---
@@ -19,7 +19,7 @@ Download a file using the Delivery Optimization service.
 
 ```powershell
 Invoke-DORequest [[-Uri] <uri>] [-ContentId <string>] [-OutFile <string>] [-Ranges <int[]>]
- [-Caller <string>] [-TimeoutSec <int>] [<CommonParameters>]
+ [-Caller <string>] [-TimeoutSec <int>] [-Background] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -56,6 +56,27 @@ PS C:\> Invoke-DORequest -Uri http://dl.delivery.mp.microsoft.com/filestreamings
 ```
 
 ## PARAMETERS
+
+### -Background
+
+Runs the download as a background job instead of the foreground. Background downloads are lower priority and may be throttled or paused by Delivery Optimization to preserve bandwidth for foreground activity.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Caller
 
@@ -193,9 +214,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
-### None <!-- markdownlint-disable MD024 -->
+### None
 
 ## RELATED LINKS
 
