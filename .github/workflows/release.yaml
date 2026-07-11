@@ -41,7 +41,7 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       - run: dotnet tool install --global AzureSignTool
         if: ${{ github.event_name != 'pull_request' }}
-      - run: azuresigntool sign -kvu $env:KEY_VAULT_URL -kvc $env:KEY_VAULT_CERT -kvm -tr http://timestamp.acs.microsoft.com -td sha256 -fd sha256 dist/*.dll
+      - run: azuresigntool sign -kvu $env:KEY_VAULT_URL -kvc $env:KEY_VAULT_CERT -kvm -tr http://timestamp.acs.microsoft.com -td sha256 -fd sha256 dist/*.dll dist/*.psd1
         if: ${{ github.event_name != 'pull_request' }}
         env:
           KEY_VAULT_URL: ${{ vars.KEY_VAULT_URL }}
