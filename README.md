@@ -14,11 +14,11 @@ Useful for testing DO configuration, cache servers, and performance. Also check 
 Install-Module PSDODownloader
 ```
 
-Prerelease builds can be installed in PowerShell 7 from the [GitHub Packages repository](https://github.com/pl4nty/PSDODownloader/pkgs/nuget/PSDODownloader), using a [classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) with the `read:packages` scope:
+Prerelease builds can be installed from [GitHub Packages](https://github.com/pl4nty/PSDODownloader/pkgs/nuget/PSDODownloader) in PowerShell 7, using a public proxy:
 
 ```powershell
-Register-PSResourceRepository -Name pl4nty -Uri https://nuget.pkg.github.com/pl4nty/index.json
-Install-PSResource -Name PSDODownloader -Repository pl4nty -Credential (Get-Credential) -Prerelease
+Register-PSResourceRepository -Name pl4nty -Uri https://github-nuget.tplant.com.au/pl4nty/index.json
+Install-PSResource -Name PSDODownloader -Repository pl4nty -Prerelease
 ```
 
 ## Usage
