@@ -215,7 +215,7 @@ namespace DODownloader
 
             options.SetRangesIfEmpty();
 
-            var factory = new DODownloadFactory(Caller ?? "PSDODownloader");
+            var factory = new DODownloadFactory(Caller ?? "IntuneAppDownload");
             var file = new DOFile(options.Url, ContentId);
 
             DODownload download = null;
