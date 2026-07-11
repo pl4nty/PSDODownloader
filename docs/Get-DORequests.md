@@ -17,13 +17,9 @@ Get Delivery Optimization downloads.
 
 ## SYNTAX
 
-### __AllParameterSets
-
-```
+```powershell
 Get-DORequests [-Uri <uri>] [<CommonParameters>]
 ```
-
-## ALIASES
 
 ## DESCRIPTION
 
@@ -138,8 +134,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### DODownloadProperties
 
 This cmdlet returns downloads and their properties from [DODownloadProperty](https://learn.microsoft.com/en-us/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadproperty).
-
-## NOTES
 
 ## RELATED LINKS
 
