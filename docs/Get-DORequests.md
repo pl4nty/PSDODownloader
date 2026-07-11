@@ -1,10 +1,10 @@
-﻿---
+---
 document type: cmdlet
-external help file: PSDODownloader-Help.xml
+external help file: DODownloader.dll-Help.xml
 HelpUri: ''
 Locale: en-AU
 Module Name: PSDODownloader
-ms.date: 05/28/2025
+ms.date: 07/11/2026
 PlatyPS schema version: 2024-05-01
 title: Get-DORequests
 ---
@@ -17,9 +17,13 @@ Get Delivery Optimization downloads.
 
 ## SYNTAX
 
-```powershell
-Get-DORequests [-Uri <Uri>] [<CommonParameters>]
+### __AllParameterSets
+
 ```
+Get-DORequests [-Uri <uri>] [<CommonParameters>]
+```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -134,6 +138,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### DODownloadProperties
 
 This cmdlet returns downloads and their properties from [DODownloadProperty](https://learn.microsoft.com/en-us/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadproperty).
+
+## NOTES
 
 ## RELATED LINKS
 
