@@ -17,14 +17,10 @@ Download a file using the Delivery Optimization service.
 
 ## SYNTAX
 
-### __AllParameterSets
-
-```
+```powershell
 Invoke-DORequest [[-Uri] <uri>] [-ContentId <string>] [-OutFile <string>] [-Ranges <int[]>]
  [-Caller <string>] [-TimeoutSec <int>] [-Background] [<CommonParameters>]
 ```
-
-## ALIASES
 
 ## DESCRIPTION
 
@@ -218,11 +214,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### None
+
 ## OUTPUTS
 
 ### None
-
-## NOTES
 
 ## RELATED LINKS
 
