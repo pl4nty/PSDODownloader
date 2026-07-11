@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0](https://github.com/pl4nty/PSDODownloader/compare/v0.3.0...v0.4.0) (2026-07-11)
+
+
+### Features
+
+* sign releases ([#25](https://github.com/pl4nty/PSDODownloader/issues/25)) ([334fa9f](https://github.com/pl4nty/PSDODownloader/commit/334fa9f2ed47a4e21b738bac7bb9fbf7c1ec4589))
+* switch parameter to set download job as background ([#14](https://github.com/pl4nty/PSDODownloader/issues/14)) ([87dbaaf](https://github.com/pl4nty/PSDODownloader/commit/87dbaaf31e32dfa478c53ef5d80a47ac61a32517))
+
+
+### Bug Fixes
+
+* default to IME's caller ID so downloads are cached ([#23](https://github.com/pl4nty/PSDODownloader/issues/23)) ([ab4ed45](https://github.com/pl4nty/PSDODownloader/commit/ab4ed45f6cf0b8d82c16e1475c5c70153d7ad544))
+* sign the module manifest ([#26](https://github.com/pl4nty/PSDODownloader/issues/26)) ([9fd0c28](https://github.com/pl4nty/PSDODownloader/commit/9fd0c28cf2dfbcbf92c25845e167490016cfd7f1))
+
 ## [0.3.0](https://github.com/pl4nty/PSDODownloader/compare/v0.2.2...v0.3.0) (2025-08-19)
 
 
