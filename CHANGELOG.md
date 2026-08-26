@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.5.0](https://github.com/pl4nty/PSDODownloader/compare/v0.4.0...v0.5.0) (2026-08-26)
+
+
+### Features
+
+* add `Caller` param to `Invoke-DORequest` ([00abeb7](https://github.com/pl4nty/PSDODownloader/commit/00abeb7ea763b493088ca2c9485bbd8c0f343dfa))
+* add `ContentId` param to `Invoke-DORequest` ([2dfcb10](https://github.com/pl4nty/PSDODownloader/commit/2dfcb1026bd5fdb9b4af2ce7c83dd415df548e46))
+* change solution from x64 to AnyCPU ([#8](https://github.com/pl4nty/PSDODownloader/issues/8)) ([bea35c1](https://github.com/pl4nty/PSDODownloader/commit/bea35c1aacdba67777108679fd5bcfc185a82d80))
+* migrate to SDK-style project ([41d40bc](https://github.com/pl4nty/PSDODownloader/commit/41d40bc09788280b1ec8ff860590217913771841))
+* port CLI to PowerShell as Invoke-Request and Get-Requests ([f0b055a](https://github.com/pl4nty/PSDODownloader/commit/f0b055afcd4f0a95b9125155707b4384e87691af))
+* publish as PowerShell module ([1de83b2](https://github.com/pl4nty/PSDODownloader/commit/1de83b26c62cb9afc8cea85819986f5bac099f96))
+* sign releases ([#25](https://github.com/pl4nty/PSDODownloader/issues/25)) ([334fa9f](https://github.com/pl4nty/PSDODownloader/commit/334fa9f2ed47a4e21b738bac7bb9fbf7c1ec4589))
+* switch parameter to set download job as background ([#14](https://github.com/pl4nty/PSDODownloader/issues/14)) ([87dbaaf](https://github.com/pl4nty/PSDODownloader/commit/87dbaaf31e32dfa478c53ef5d80a47ac61a32517))
+* timeout param for Invoke-Download ([1e6afd0](https://github.com/pl4nty/PSDODownloader/commit/1e6afd0e6e425d0a742a8c94087f78af61c7c6ff))
+
+
+### Bug Fixes
+
+* `OutputFilePath` default value comparison ([7791ec0](https://github.com/pl4nty/PSDODownloader/commit/7791ec09135284ce8d62a3fd563bc1df202c4f16))
+* aborting downloads and PowerShell 5 logging ([769e0b1](https://github.com/pl4nty/PSDODownloader/commit/769e0b11b3186c4da117915c70cff92bdda9202b))
+* default to IME's caller ID so downloads are cached ([#23](https://github.com/pl4nty/PSDODownloader/issues/23)) ([ab4ed45](https://github.com/pl4nty/PSDODownloader/commit/ab4ed45f6cf0b8d82c16e1475c5c70153d7ad544))
+* PowerShell 5 URL encoding ([5b0614f](https://github.com/pl4nty/PSDODownloader/commit/5b0614fc4c55caa8026913c0b907cdcef8e77d81))
+* regenerate docs with PlatyPS v1 ([5d70910](https://github.com/pl4nty/PSDODownloader/commit/5d709100297412ba3015fa8fc72b47accaa0fbec))
+* sign the module manifest ([#26](https://github.com/pl4nty/PSDODownloader/issues/26)) ([9fd0c28](https://github.com/pl4nty/PSDODownloader/commit/9fd0c28cf2dfbcbf92c25845e167490016cfd7f1))
+* TimeoutSec default value ([4fac4f6](https://github.com/pl4nty/PSDODownloader/commit/4fac4f6470466fa54d9b7d0a2f5021375121d9d3))
+
 ## [0.4.0](https://github.com/pl4nty/PSDODownloader/compare/v0.3.0...v0.4.0) (2026-07-11)
 
 
